@@ -4,4 +4,6 @@ Rails.application.routes.draw do
 
   post '/api_key', to: 'api_key#submit'
   post '/api_key/reset', to: 'api_key#reset'
+
+  resources :candidates, only: [:index]
 end
