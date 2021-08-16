@@ -1,0 +1,21 @@
+<% if @api_key.blank? %>
+  <div>
+    <%= form_with url: "/api_key", method: :post do |form| %>
+      <%= form.label :api_key, "Enter your API key:" %>
+      <%= form.text_field :api_key %>
+      <%= form.submit "Submit" %>
+    <% end %>
+  </div>
+<% else %>
+  <div>
+    You are using the following API key:
+    <%= @api_key %>
+  </div>
+  <%= form_with url: "/api_key/reset", method: :post do |form| %>
+    <%= form.submit "Reset" %>
+  <% end %>
+  <h1> Supported resources: </h1>
+  <ul>
+    <li>Candidates</li>
+  </ul>
+<% end %>
