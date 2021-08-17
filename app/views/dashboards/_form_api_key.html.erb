@@ -1,0 +1,9 @@
+<div class="dashboard__form-api-key">
+  <%= form_with url: "/api_key", method: :post do |form| %>
+    <div class="input-wrapper">
+      <%= form.label :api_key, "Enter your API key:" %>
+      <%= form.text_field :api_key %>
+    <div>
+    <%= form.submit "Submit" %>
+  <% end %>
+</div>
