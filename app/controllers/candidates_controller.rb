@@ -31,10 +31,10 @@ class CandidatesController < ApplicationController
   end
 
   def filters
-    QueryBuilder.new.run(filters_params)
+    QueryBuilder.new.run(filters_params) if filters_params.present?
   end
 
   def filters_params
-    params.permit(:email, :created_at_from, :created_at_to).to_h
+    params.permit(:email, :created_at_from, :created_at_to, :connected).to_h
   end
 end
