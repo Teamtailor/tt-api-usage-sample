@@ -3,13 +3,13 @@
     <div class="input-wrapper">
       <%= form.label :email, "Email" %>
       <%= form.text_field :email %>
-    <div>
-    <div class="input-wrapper">
       <%= form.label :created_at_from, "Created at - from" %>
       <%= form.date_field :created_at_from %>
       <%= form.label :created_at_to, "Created at - to" %>
       <%= form.date_field :created_at_to %>
-    <div>
-    <%= form.submit "Filter" %>
+      <%= form.label :connected, "Connected?" %>
+      <%= form.select :connected, ['true', 'false'] %>
+      <%= form.submit "Filter" %>
+    </div>
   <% end %>
 </div>
