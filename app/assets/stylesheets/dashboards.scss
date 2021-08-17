@@ -3,6 +3,39 @@
     text-align: center;
   }
 
+  &__api-key-box {
+    max-width: 736px;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid rgb(173, 174, 178);
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  &__reset-button {
+    border: none;
+    background: #eeeff2;
+    color: #f43f85;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .1s ease-in-out;
+    border-radius: 50%;
+    padding: 0!important;
+    width: 30px;
+    height: 30px;
+    font-size: 10px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  &__api-key-label {
+    text-align: center;
+    font-size: 16px;
+  }
+
   &__form-api-key {
     margin: 70px auto;
     max-width: 736px;
