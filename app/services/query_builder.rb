@@ -1,15 +1,30 @@
 class QueryBuilder
   def run(params)
-    deep_compact(key_transform(params))
+    deep_compact(transform(params))
   end
 
   private
 
-  def key_transform(params)
-    { filter: { created_at: { from: params[:created_at_from], to: params[:created_at_to] }, email: params[:email] }}
+  def transform(params)
+    transformed_params = Hash.new { |h, k| h[k] = {} }.tap do |hash|
+      params.each do |param_key, param_value|
+        if param_key.include?('_from')
+          hash[param_key.remove('_from').dasherize]['from'] = param_value
+        elsif param_key.include?('_to')
+          hash[param_key.remove('_to').dasherize]['to'] = param_value
+        else
+          hash[param_key.dasherize] = param_value
+        end
+      end
+    end
+    { filter: transformed_params }
   end
 
-  def deep_compact(h)
-    h.each { |_, v| deep_compact(v) if v.is_a? Hash }.reject! { |_, v| v.blank? }
+  def deep_compact(hash)
+    hash.compact.transform_values do |value|
+      next value unless value.is_a? Hash
+
+      deep_compact(value)
+    end.reject { |_k, v| v.blank? }
   end
 end
