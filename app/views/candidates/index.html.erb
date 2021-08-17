@@ -1,0 +1,43 @@
+<h1>Candidates list</h1>
+<%= render 'candidates/form_candidate_filters' %>
+
+<div>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Created At</th>
+      <th>Connected</th>
+      <th>Unsubscribed</th>
+      <th>Linkedin URL</th>
+    </tr>
+    <% @data['data'].each do |candidate| %>
+      <tr>
+        <th><%= candidate.dig('id') %></th>
+        <th><%= candidate.dig('attributes', 'first-name') %></th>
+        <th><%= candidate.dig('attributes', 'last-name') %></th>
+        <th><%= candidate.dig('attributes', 'email') %></th>
+        <th><%= candidate.dig('attributes', 'created-at') %></th>
+        <th><%= candidate.dig('attributes', 'connected') %></th>
+        <th><%= candidate.dig('attributes', 'unsubscribed') %></th>
+        <th><%= candidate.dig('attributes', 'linkedin-url') %></th>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="center">
+  <span> <%= link_to 'First', candidates_path(page: 1) %></span>
+  <% if @prev_page %>
+    <span> <%= link_to 'Previous', candidates_path(page: @prev_page) %></span>
+  <% end %>
+  <% pages_to_display(@current_page, @max_page).each do |page| %>
+    <span> <%= link_to page, candidates_path(page: page) %></span>
+  <% end %>
+  <% if @next_page %>
+    <span> <%= link_to 'Next', candidates_path(page: @next_page) %></span>
+  <% end %>
+  <span> <%= link_to 'Last', candidates_path(page: @max_page) %></span>
+</div>
