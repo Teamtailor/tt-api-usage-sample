@@ -4,11 +4,11 @@ class TeamtailorApiClient
   def initialize(resource, filters, api_key)
     @resource = resource
     @api_key = api_key
-    @filters = filters
+    @filters = filters || {}
   end
 
   def fetch(page = 1, size = 10)
-    params = { page: { number: page, size: size } }.merge(filters.to_h)
+    params = { page: { number: page, size: size } }.merge(filters)
     response = Faraday.get(resource_url, params, headers)
     JSON.parse(response.body)
   end
