@@ -35,6 +35,6 @@ class CandidatesController < ApplicationController
   end
 
   def filters_params
-    params.permit(:first_name).to_h
+    params.permit(:email, :created_at_from, :created_at_to).to_h
   end
 end

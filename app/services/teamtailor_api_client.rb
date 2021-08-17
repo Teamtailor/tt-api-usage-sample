@@ -8,7 +8,7 @@ class TeamtailorApiClient
   end
 
   def fetch(page = 1, size = 10)
-    params = { page: { number: page, size: size } }.merge(filters)
+    params = { page: { number: page, size: size } }.merge(filters.to_h)
     response = Faraday.get(resource_url, params, headers)
     JSON.parse(response.body)
   end

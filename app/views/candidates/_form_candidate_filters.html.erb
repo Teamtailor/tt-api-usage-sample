@@ -1,8 +1,14 @@
 <div class="dashboard__form-api-key">
   <%= form_with url: candidates_path, method: :get do |form| %>
     <div class="input-wrapper">
-      <%= form.label :first_name, "First name" %>
-      <%= form.text_field :first_name %>
+      <%= form.label :email, "Email" %>
+      <%= form.text_field :email %>
+    <div>
+    <div class="input-wrapper">
+      <%= form.label :created_at_from, "Created at - from" %>
+      <%= form.date_field :created_at_from %>
+      <%= form.label :created_at_to, "Created at - to" %>
+      <%= form.date_field :created_at_to %>
     <div>
     <%= form.submit "Filter" %>
   <% end %>
