@@ -1,6 +1,6 @@
 class CandidatesController < ApplicationController
   def index
-    @data = TeamtailorApiClient.new('candidates', api_key).fetch(current_page)
+    @data = TeamtailorApiClient.new('candidates', filters, api_key).fetch(current_page)
     @next_page = response_page_param('next')
     @prev_page = response_page_param('prev')
     set_max_page
@@ -28,5 +28,13 @@ class CandidatesController < ApplicationController
 
   def set_max_page
     @max_page = data['meta']['page-count']
+  end
+
+  def filters
+    QueryBuilder.new.run(filters_params)
+  end
+
+  def filters_params
+    params.permit(:first_name).to_h
   end
 end

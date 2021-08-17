@@ -1,10 +1,5 @@
 <h1>Candidates list</h1>
-
-<div>
-  <%= form_with url: candidates_path, method: :get do |form| %>
-    <%= form.submit "Search" %>
-  <% end %>
-</div>
+<%= render 'candidates/form_candidate_filters' %>
 
 <div>
   <table>

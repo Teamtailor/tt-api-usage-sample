@@ -1,13 +1,14 @@
 class TeamtailorApiClient
   BASE_URL = 'https://api.teamtailor.com/v1/'.freeze
 
-  def initialize(resource, api_key)
+  def initialize(resource, filters, api_key)
     @resource = resource
     @api_key = api_key
+    @filters = filters
   end
 
   def fetch(page = 1, size = 10)
-    params = { page: { number: page, size: size } }
+    params = { page: { number: page, size: size } }.merge(filters)
     response = Faraday.get(resource_url, params, headers)
     JSON.parse(response.body)
   end
@@ -31,7 +32,7 @@ class TeamtailorApiClient
 
   private
 
-  attr_reader :resource, :api_key
+  attr_reader :resource, :api_key, :filters
 
   def headers
     { Authorization: "Token token=#{api_key}", 'X-Api-Version': '20210218' }

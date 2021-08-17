@@ -1,0 +1,9 @@
+<div class="dashboard__form-api-key">
+  <%= form_with url: candidates_path, method: :get do |form| %>
+    <div class="input-wrapper">
+      <%= form.label :first_name, "First name" %>
+      <%= form.text_field :first_name %>
+    <div>
+    <%= form.submit "Filter" %>
+  <% end %>
+</div>
