@@ -3,6 +3,7 @@ class CandidatesController < ApplicationController
     @data = TeamtailorApiClient.new('candidates', api_key).fetch(current_page)
     @next_page = response_page_param('next')
     @prev_page = response_page_param('prev')
+    set_max_page
   end
 
   private
@@ -14,7 +15,7 @@ class CandidatesController < ApplicationController
   end
 
   def current_page
-    params.permit(:page)['page'] || 1
+    @current_page = params.permit(:page)['page'] || 1
   end
 
   def response_page_param(direction)
@@ -23,5 +24,9 @@ class CandidatesController < ApplicationController
 
     uri = URI.parse(url)
     CGI.parse(uri.query)['page[number]'].first
+  end
+
+  def set_max_page
+    @max_page = data['meta']['page-count']
   end
 end
