@@ -1,21 +1,21 @@
-<% if @api_key.blank? %>
-  <div>
-    <%= form_with url: "/api_key", method: :post do |form| %>
-      <%= form.label :api_key, "Enter your API key:" %>
-      <%= form.text_field :api_key %>
-      <%= form.submit "Submit" %>
+<div class="dashboard">
+  <h1>👋 Welcome to the Teamtailor Import Export tool</h1>
+  <p class="dashboard__instruction">To start using tool, please enter your API key. You can find istruction how to generate it <a href="https://support.teamtailor.com/en/articles/5338195-use-our-teamtailor-api">here</a></p>
+
+
+  <% if @api_key.blank? %>
+    <%= render 'dashboards/form_api_key' %>
+  <% else %>
+    <div>
+      You are using the following API key:
+      <%= @api_key %>
+    </div>
+    <%= form_with url: "/api_key/reset", method: :post do |form| %>
+      <%= form.submit "Reset" %>
     <% end %>
-  </div>
-<% else %>
-  <div>
-    You are using the following API key:
-    <%= @api_key %>
-  </div>
-  <%= form_with url: "/api_key/reset", method: :post do |form| %>
-    <%= form.submit "Reset" %>
+    <h1> Supported resources: </h1>
+    <ul>
+      <li>Candidates</li>
+    </ul>
   <% end %>
-  <h1> Supported resources: </h1>
-  <ul>
-    <li>Candidates</li>
-  </ul>
-<% end %>
+</div>
