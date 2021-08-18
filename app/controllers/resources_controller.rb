@@ -11,6 +11,10 @@ class ResourcesController < ApplicationController
     @current_page = params.permit(:page)['page'] || 1
   end
 
+  def export?
+    params['commit']&.include? 'Export'
+  end
+
   def response_page_param(direction)
     url = data.dig('links', direction)
     return if url.nil?
