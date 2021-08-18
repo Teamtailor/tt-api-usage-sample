@@ -9,7 +9,8 @@
       <%= form.date_field :created_at_to, value: filter_params['created_at_to'] %>
       <%= form.label :connected, "Connected?" %>
       <%= form.select :connected, ['', 'true', 'false'], selected: filter_params['connected'] %>
-      <%= form.submit "Filter" %>
+      <%= form.submit "Filter", data: { disable_with: false } %>
+      <%= form.submit "Export #{filter_params.values.all?(&:blank?) ? 'all' : 'filtered'}", data: { disable_with: false } %>
     </div>
   <% end %>
 </div>
