@@ -4,7 +4,7 @@ class TeamtailorApiClient
   def initialize(resource, filters, api_key)
     @resource = resource
     @api_key = api_key
-    @filters = filters
+    @filters = filters || {}
   end
 
   def fetch(page = 1, size = 10)

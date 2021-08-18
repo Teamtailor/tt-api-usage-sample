@@ -1,9 +1,15 @@
 <div class="dashboard__form-api-key">
   <%= form_with url: candidates_path, method: :get do |form| %>
     <div class="input-wrapper">
-      <%= form.label :first_name, "First name" %>
-      <%= form.text_field :first_name %>
-    <div>
-    <%= form.submit "Filter" %>
+      <%= form.label :email, "Email" %>
+      <%= form.text_field :email, value: filter_params['email'] %>
+      <%= form.label :created_at_from, "Created at - from" %>
+      <%= form.date_field :created_at_from, value: filter_params['created_at_from'] %>
+      <%= form.label :created_at_to, "Created at - to" %>
+      <%= form.date_field :created_at_to, value: filter_params['created_at_to'] %>
+      <%= form.label :connected, "Connected?" %>
+      <%= form.select :connected, ['', 'true', 'false'], selected: filter_params['connected'] %>
+      <%= form.submit "Filter" %>
+    </div>
   <% end %>
 </div>
