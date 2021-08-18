@@ -7,7 +7,7 @@ class TeamtailorApiClient
     @filters = filters || {}
   end
 
-  def fetch(page = 1, size = 10)
+  def fetch(page = 1, size = 30)
     params = { page: { number: page, size: size } }.merge(filters)
     response = Faraday.get(resource_url, params, headers)
     JSON.parse(response.body)
@@ -20,12 +20,12 @@ class TeamtailorApiClient
     total_pages = response.dig('meta', 'page-count')
     (2..total_pages).each do |page_number|
       response_data = response_data(page_number)
-      data += response_data unless response_data
+      data += response_data if response_data.present?
     end
     data
   end
 
-  def response_data(page = 1, size = 10)
+  def response_data(page = 1, size = 30)
     response = fetch(page, size)
     response['data']
   end
