@@ -8,7 +8,7 @@
       <%= form.label :created_at_to, "Created at - to" %>
       <%= form.date_field :created_at_to %>
       <%= form.label :connected, "Connected?" %>
-      <%= form.select :connected, ['true', 'false'] %>
+      <%= form.select :connected, ['', 'true', 'false'] %>
       <%= form.submit "Filter" %>
     </div>
   <% end %>
