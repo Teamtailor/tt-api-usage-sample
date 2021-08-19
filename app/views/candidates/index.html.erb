@@ -3,6 +3,8 @@
 <%= render 'candidates/form_candidate_filters', :filter_params => @filter_params %>
 </div>
 
+<%= render 'candidates/error_message' %>
+
 <div>
   <table>
     <tr>
@@ -15,7 +17,7 @@
       <th>Unsubscribed</th>
       <th>Linkedin URL</th>
     </tr>
-    <% @data['data'].each do |candidate| %>
+    <% @data['data']&.each do |candidate| %>
       <tr>
         <th><%= candidate.dig('id') %></th>
         <th><%= candidate.dig('attributes', 'first-name') %></th>
