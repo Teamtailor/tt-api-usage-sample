@@ -4,6 +4,7 @@
     <h2>Candidates</h2>
     <%= form_with url: candidates_path, method: :get, html: { class: "toolbar-form"} do |form| %>
       <input type="hidden" id="commit" name="commit">
+      <input type="hidden" id="page" value="1" name="page">
       <div class="resource-list__toolbar">
         <div class="filters">
             <select name="location_id" id="location_id"">

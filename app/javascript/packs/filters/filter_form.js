@@ -17,7 +17,10 @@ class ToolbarForm {
   setInitialValues(){
     const curentUrl = new URL(window.location);
     curentUrl.searchParams.forEach((value, key) => {
-      this.formNode.querySelector(`*[name="${key}"]`).value = value
+      let input = this.formNode.querySelector(`*[name="${key}"]`)
+      if (input){
+        input.value = value
+      }
     })
   }
 
