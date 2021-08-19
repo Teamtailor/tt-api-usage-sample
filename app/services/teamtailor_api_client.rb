@@ -22,7 +22,7 @@ class TeamtailorApiClient
     rescue TeamtailorApiClientRateLimitExceeded
       sleep(redis.get('rate-limit-remaining').to_i + 1)
       retry if (retries += 1) < 3
-      raise TeamtailorApiClientRateLimitExceeded
+      raise TeamtailorApiClientRateLimitExceeded, ['Rate Limit Exceeded']
     end
   end
 
@@ -72,7 +72,10 @@ class TeamtailorApiClient
     response_headers = response.headers.to_h.slice('X-Rate-Limit-Remaining', 'X-Rate-Limit-Reset')
     redis.setex('rate-limit-remaining', response_headers['X-Rate-Limit-Reset'].to_i,
                 response_headers['X-Rate-Limit-Remaining'])
-    raise TeamtailorApiClientError unless response.success?
+    return if response.success?
+
+    errors = JSON.parse(response.body)['errors'].map! { |error| error.slice('title', 'detail').values.join(': ') }
+    raise TeamtailorApiClientError, errors
   end
 
   def redis
