@@ -1,10 +1,60 @@
-<h1>Candidates list</h1>
-<div>
-<%= render 'candidates/form_candidate_filters', :filter_params => @filter_params %>
+<div class="candidates resource-list">
+
+  <div class="resource-list__header">
+    <h2>Candidates</h2>
+    <%= form_with url: candidates_path, method: :get, html: { class: "toolbar-form"} do |form| %>
+      <input type="hidden" id="commit" name="commit">
+      <div class="resource-list__toolbar">
+        <div class="filters">
+            <select name="location_id" id="location_id"">
+               <option value="">Locations</option>
+            </select>
+
+            <select name="connected" id="connected"">
+              <option value="">Connected</option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+
+        </div>
+
+        <div class="settings">
+          <button class="action-button download-button"><i class="fas fa-download"></i></button>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="resource-list__table">
+      <table>
+        <tr>
+          <th>Id</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Created At</th>
+          <th>Connected</th>
+          <th>Unsubscribed</th>
+          <th>Linkedin URL</th>
+        </tr>
+        <% @data['data'].each do |candidate| %>
+          <tr>
+            <td><%= candidate.dig('id') %></td>
+            <td><%= candidate.dig('attributes', 'first-name') %></td>
+            <td><%= candidate.dig('attributes', 'last-name') %></td>
+            <td><%= candidate.dig('attributes', 'email') %></td>
+            <td><%= candidate.dig('attributes', 'created-at') %></td>
+            <td><%= candidate.dig('attributes', 'connected') %></td>
+            <td><%= candidate.dig('attributes', 'unsubscribed') %></td>
+            <td><%= candidate.dig('attributes', 'linkedin-url') %></td>
+          </tr>
+        <% end %>
+      </table>
+  </div>
 </div>
 
-<%= render 'candidates/error_message' %>
 
+<%= render 'candidates/error_message' %>
 <div>
   <table>
     <tr>
@@ -31,6 +81,8 @@
     <% end %>
   </table>
 </div>
+
+
 
 <div class="pagination center">
   <span> <%= link_to 'First', candidates_path(@filter_params.merge(page: 1)) %></span>
