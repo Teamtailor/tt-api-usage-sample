@@ -1,7 +1,24 @@
 class ResourcesController < ApplicationController
+  def index
+    export? ? export : filter
+  end
+
+  def filter
+    @data = TeamtailorApiClient.new(resource_type, filters, api_key).fetch(current_page)
+    @next_page = response_page_param('next')
+    @prev_page = response_page_param('prev')
+    set_max_page
+  end
+
+  def export
+    all_data = TeamtailorApiClient.new(resource_type, filters, api_key).fetch_all_data
+    csv = CsvGenerator.new(all_data).run
+    send_data csv, type: 'text/csv', filename: "#{resource_type}_export_#{Time.current}.csv"
+  end
+
   private
 
-  attr_reader :data
+  attr_reader :data, :resource_type
 
   def api_key
     @api_key ||= session[:api_key]
@@ -29,9 +46,5 @@ class ResourcesController < ApplicationController
 
   def filters
     QueryBuilder.new.run(filters_params) if filters_params.present?
-  end
-
-  def filters_params
-    @filter_params = params.permit(:email, :created_at_from, :created_at_to, :connected).to_h
   end
 end

@@ -23,7 +23,7 @@ class MyClass {
     locations.map((location) => {
       const option = document.createElement('option');
       option.value = location.id
-      option.innerHTML = `${location.attributes.city} ${location.attributes.address}`
+      option.innerHTML = `${location.attributes.city} (${location.attributes.address} ${location.attributes.country})`
       this.selectNode.appendChild(option)
     })
   }

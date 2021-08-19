@@ -1,18 +1,11 @@
 class CandidatesController < ResourcesController
-  def index
-    export? ? export : filter
+  private
+
+  def filters_params
+    @filter_params = params.permit(:email, :created_at_from, :created_at_to, :connected, :locations).to_h
   end
 
-  def filter
-    @data = TeamtailorApiClient.new('candidates', filters, api_key).fetch(current_page)
-    @next_page = response_page_param('next')
-    @prev_page = response_page_param('prev')
-    set_max_page
-  end
-
-  def export
-    all_data = TeamtailorApiClient.new('candidates', filters, api_key).fetch_all_data
-    csv = CsvGenerator.new(all_data).run
-    send_data csv, type: 'text/csv', filename: "candidates_export_#{Time.current}.csv"
+  def resource_type
+    'candidates'
   end
 end
