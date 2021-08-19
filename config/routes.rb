@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   post '/api_key/reset', to: 'api_key#reset'
 
   resources :candidates, only: [:index]
+  resources :locations, only: [:index]
 end
