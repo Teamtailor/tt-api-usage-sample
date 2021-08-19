@@ -13,6 +13,6 @@ class CandidatesController < ResourcesController
   def export
     all_data = TeamtailorApiClient.new('candidates', filters, api_key).fetch_all_data
     csv = CsvGenerator.new(all_data).run
-    send_data csv, :type => 'text/csv', :filename => "candidates_export_#{Time.current}.csv"
+    send_data csv, type: 'text/csv', filename: "candidates_export_#{Time.current}.csv"
   end
 end
