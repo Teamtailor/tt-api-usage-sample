@@ -55,36 +55,6 @@
 </div>
 
 
-<%= render 'candidates/error_message' %>
-<div>
-  <table>
-    <tr>
-      <th>Id</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Created At</th>
-      <th>Connected</th>
-      <th>Unsubscribed</th>
-      <th>Linkedin URL</th>
-    </tr>
-    <% @data['data']&.each do |candidate| %>
-      <tr>
-        <th><%= candidate.dig('id') %></th>
-        <th><%= candidate.dig('attributes', 'first-name') %></th>
-        <th><%= candidate.dig('attributes', 'last-name') %></th>
-        <th><%= candidate.dig('attributes', 'email') %></th>
-        <th><%= candidate.dig('attributes', 'created-at') %></th>
-        <th><%= candidate.dig('attributes', 'connected') %></th>
-        <th><%= candidate.dig('attributes', 'unsubscribed') %></th>
-        <th><%= candidate.dig('attributes', 'linkedin-url') %></th>
-      </tr>
-    <% end %>
-  </table>
-</div>
-
-
-
 <div class="pagination center">
   <span> <%= link_to 'First', candidates_path(@filter_params.merge(page: 1)) %></span>
   <% if @prev_page %>
