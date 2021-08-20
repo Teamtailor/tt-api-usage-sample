@@ -6,7 +6,7 @@ class CsvGenerator
   def run
     parse_data_attributes
     CSV.generate(headers: true) do |csv|
-      csv << data.first.keys
+      csv << data.first.keys unless data.empty?
 
       data.each do |row|
         csv << row.values

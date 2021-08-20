@@ -5,19 +5,16 @@
     <%= form_with url: candidates_path, method: :get, html: { class: "toolbar-form"} do |form| %>
       <input type="hidden" id="commit" name="commit">
       <input type="hidden" id="page" value="1" name="page">
-
-
-
       <div class="resource-list__toolbar">
 
         <div class="search">
           <%= form.date_field :created_at_from %>
           <%= form.date_field :created_at_to %>
-          <input name="email" placeholder="email@exampl.com" id="email">
+          <input name="email" placeholder="email@example.com" id="email">
         </div>
 
         <div class="filters">
-          <select name="location_id" id="location_id"">
+          <select name="location_id" id="location_id">
              <option value="">Locations</option>
           </select>
 
@@ -48,7 +45,7 @@
           <th>Unsubscribed</th>
           <th>Linkedin URL</th>
         </tr>
-        <% @data['data'].each do |candidate| %>
+        <% @data['data']&.each do |candidate| %>
           <tr>
             <td><%= candidate.dig('id') %></td>
             <td><%= candidate.dig('attributes', 'first-name') %></td>
