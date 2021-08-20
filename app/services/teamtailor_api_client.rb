@@ -6,7 +6,7 @@ class TeamtailorApiClientError < StandardError; end
 
 class TeamtailorApiClient
   BASE_URL = 'https://api.teamtailor.com/v1/'.freeze
-  CONCURRENT_BATCH_SIZE = 50
+  CONCURRENT_BATCH_SIZE = 40
 
   def initialize(resource, filters, api_key)
     @resource = resource
