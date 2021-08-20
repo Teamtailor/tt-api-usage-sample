@@ -23,7 +23,7 @@ implements the following features:
 * **Retry mechanism**: The Teamtailor Api Client will retry the failed request up to 3 times when a rate limit exceeded
   error is thrown. After that, it will raise an Error to the user.
 * **Caching requests**: To avoid unnecessary API calls and improve the speed, the HTTP requests made will automatically
-  be cached (in Redis) for 10 min.
+  be cached (in Redis) for 1 hour.
 * **Parallelized HTTP requests**: The client interacts with Teamtailor public API using the
   popular [Typhoeus gem](https://github.com/typhoeus/typhoeus). It's basically a wrapper around libcurl library and it
   allows to make fast and reliable concurrent http requests.
