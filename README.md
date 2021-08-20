@@ -9,7 +9,7 @@ of [Teamtailor resources](https://docs.teamtailor.com/).
 * Clone the repo
 * Install dependencies using `bundle install`
 * Start the server with `rails server`
-* Visit `http://localhost:3000/` to access the app home page
+* Visit [http://localhost:3000](http://localhost:3000) to access the app home page
 * Enter your Teamtailor API key the hit Submit.
 * You can then select the supported resource and start filtering/exporting data.
 
