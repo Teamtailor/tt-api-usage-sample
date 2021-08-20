@@ -8,10 +8,11 @@ class TeamtailorApiClient
   BASE_URL = 'https://api.teamtailor.com/v1/'.freeze
   CONCURRENT_BATCH_SIZE = 40
 
-  def initialize(resource, filters, api_key)
+  def initialize(resource, filters, includes, api_key)
     @resource = resource
     @api_key = api_key
     @filters = filters || {}
+    @includes = includes || {}
   end
 
   def fetch(page = 1, size = 30)
@@ -40,7 +41,7 @@ class TeamtailorApiClient
   end
 
   def request(page = 1, size = 30)
-    params = { page: { number: page, size: size } }.merge(filters)
+    params = { page: { number: page, size: size } }.merge(filters, includes)
     allow_request?
     request = Typhoeus::Request.new(resource_url, params: params, headers: headers)
     request.on_complete do |response|
@@ -62,7 +63,7 @@ class TeamtailorApiClient
 
   private
 
-  attr_reader :resource, :api_key, :filters
+  attr_reader :resource, :api_key, :filters, :includes
 
   def headers
     { Authorization: "Token token=#{api_key}", 'X-Api-Version': '20210218' }

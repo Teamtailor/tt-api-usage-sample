@@ -35,7 +35,7 @@
         <th>Created At</th>
         <th>Connected</th>
         <th>Unsubscribed</th>
-        <th>Linkedin URL</th>
+        <th>Location(s)</th>
       </tr>
       <% @data['data']&.each do |candidate| %>
         <tr>
@@ -43,10 +43,10 @@
           <td><%= candidate.dig('attributes', 'first-name') %></td>
           <td><%= candidate.dig('attributes', 'last-name') %></td>
           <td><%= candidate.dig('attributes', 'email') %></td>
-          <td><%= candidate.dig('attributes', 'created-at') %></td>
+          <td><%= Time.parse(candidate.dig('attributes', 'created-at')).strftime("%Y-%m-%dT%H:%M:%S") %></td>
           <td><%= candidate.dig('attributes', 'connected') %></td>
           <td><%= candidate.dig('attributes', 'unsubscribed') %></td>
-          <td><%= candidate.dig('attributes', 'linkedin-url') %></td>
+          <td><%= candidate_locations(candidate, @data['included']) %></td>
         </tr>
       <% end %>
     </table>
