@@ -1,6 +1,11 @@
 class ResourcesController < ApplicationController
   def index
     export? ? export : filter
+  rescue TeamtailorApiClientRateLimitExceeded, TeamtailorApiClientError => e
+    @data = {}
+    @max_page = 0
+    @errors = JSON.parse(e.message)
+    flash.now.alert = 'An error occurred while interacting with Teamtailor API:'
   end
 
   def filter

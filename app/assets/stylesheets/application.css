@@ -17,3 +17,7 @@
 .center {
     text-align: center;
 }
+
+.errors_list {
+    list-style: inside;
+}
