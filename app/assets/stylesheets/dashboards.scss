@@ -1,6 +1,33 @@
 .dashboard {
+  margin: 30px;
+
   &__instruction {
     text-align: center;
+  }
+
+  &__resources-list {
+    margin-top: 30px;
+
+    ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      list-style: none;
+      border: 1px solid #adaeb2;
+    }
+
+    a {
+      display: block;
+      background-color: #fff;
+      padding: 18px 14px;
+      color: #57595F;
+      font-weight: 600;
+    }
+    a:hover {
+      color: #34353A;
+    }
   }
 
   &__api-key-box {

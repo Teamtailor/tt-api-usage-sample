@@ -52,4 +52,8 @@ class ResourcesController < ApplicationController
   def filters
     QueryBuilder.new.run(filters_params) if filters_params.present?
   end
+
+  def filters_params
+    @filter_params = params.permit(:email, :created_at_from, :created_at_to, :connected, :location_id).to_h
+  end
 end

@@ -1,4 +1,4 @@
-class MyClass {
+class SelectLocations {
   constructor(selectNode) {
     this.selectNode = selectNode;
     this.addListeners()
@@ -29,12 +29,11 @@ class MyClass {
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", function(event) {
   const selectNode = document.querySelector("#location_id");
 
   if (selectNode) {
-    new MyClass(selectNode)
+    new SelectLocations(selectNode)
   }
 });
 

@@ -1,47 +1,77 @@
-<h1>Candidates list</h1>
-<div>
-<%= render 'candidates/form_candidate_filters', :filter_params => @filter_params %>
-</div>
+<div class="candidates resource-list">
 
-<%= render 'candidates/error_message' %>
+  <div class="resource-list__header">
+    <h2>Candidates</h2>
+    <%= form_with url: candidates_path, method: :get, html: { class: "toolbar-form"} do |form| %>
+      <input type="hidden" id="commit" name="commit">
+      <input type="hidden" id="page" value="1" name="page">
 
-<div>
-  <table>
-    <tr>
-      <th>Id</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Created At</th>
-      <th>Connected</th>
-      <th>Unsubscribed</th>
-      <th>Linkedin URL</th>
-    </tr>
-    <% @data['data']&.each do |candidate| %>
-      <tr>
-        <th><%= candidate.dig('id') %></th>
-        <th><%= candidate.dig('attributes', 'first-name') %></th>
-        <th><%= candidate.dig('attributes', 'last-name') %></th>
-        <th><%= candidate.dig('attributes', 'email') %></th>
-        <th><%= candidate.dig('attributes', 'created-at') %></th>
-        <th><%= candidate.dig('attributes', 'connected') %></th>
-        <th><%= candidate.dig('attributes', 'unsubscribed') %></th>
-        <th><%= candidate.dig('attributes', 'linkedin-url') %></th>
-      </tr>
+
+
+      <div class="resource-list__toolbar">
+
+        <div class="search">
+          <%= form.date_field :created_at_from %>
+          <%= form.date_field :created_at_to %>
+          <input name="email" placeholder="email@exampl.com" id="email">
+        </div>
+
+        <div class="filters">
+          <select name="location_id" id="location_id"">
+             <option value="">Locations</option>
+          </select>
+
+          <select name="connected" id="connected"">
+            <option value="">Connected</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+
+        </div>
+
+        <div class="settings">
+          <button class="action-button download-button"><i class="fas fa-download"></i></button>
+        </div>
+      </div>
     <% end %>
-  </table>
+
+  </div>
+  <div class="resource-list__table">
+      <table>
+        <tr>
+          <th>Id</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Created At</th>
+          <th>Connected</th>
+          <th>Unsubscribed</th>
+          <th>Linkedin URL</th>
+        </tr>
+        <% @data['data'].each do |candidate| %>
+          <tr>
+            <td><%= candidate.dig('id') %></td>
+            <td><%= candidate.dig('attributes', 'first-name') %></td>
+            <td><%= candidate.dig('attributes', 'last-name') %></td>
+            <td><%= candidate.dig('attributes', 'email') %></td>
+            <td><%= candidate.dig('attributes', 'created-at') %></td>
+            <td><%= candidate.dig('attributes', 'connected') %></td>
+            <td><%= candidate.dig('attributes', 'unsubscribed') %></td>
+            <td><%= candidate.dig('attributes', 'linkedin-url') %></td>
+          </tr>
+        <% end %>
+      </table>
+      <div class="resource-list__pagination">
+        <span> <%= link_to '<< ', candidates_path(@filter_params.merge(page: 1)) %></span>
+        <% if @prev_page %>
+          <span> <%= link_to 'Previous', candidates_path(@filter_params.merge(page: @prev_page)) %></span>
+        <% end %>
+        <% pages_to_display(@current_page, @max_page).each do |page| %>
+          <span> <%= link_to page, candidates_path(@filter_params.merge(page: page)) %></span>
+        <% end %>
+        <span> <%= link_to ' >>', candidates_path(@filter_params.merge(page: @max_page)) %></span>
+      </div>
+  </div>
 </div>
 
-<div class="pagination center">
-  <span> <%= link_to 'First', candidates_path(@filter_params.merge(page: 1)) %></span>
-  <% if @prev_page %>
-    <span> <%= link_to 'Previous', candidates_path(@filter_params.merge(page: @prev_page)) %></span>
-  <% end %>
-  <% pages_to_display(@current_page, @max_page).each do |page| %>
-    <span> <%= link_to page, candidates_path(@filter_params.merge(page: page)) %></span>
-  <% end %>
-  <% if @next_page %>
-    <span> <%= link_to 'Next', candidates_path(@filter_params.merge(page: @next_page)) %></span>
-  <% end %>
-  <span> <%= link_to 'Last', candidates_path(@filter_params.merge(page: @max_page)) %></span>
-</div>
+
