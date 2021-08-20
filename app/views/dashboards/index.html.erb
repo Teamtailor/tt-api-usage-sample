@@ -13,10 +13,8 @@ X
         </button>
       <% end %>
     </div>
-    <h1> Supported resources: </h1>
-    <div class="dashboard__resources-list">
-    <ul>
-      <li><%= link_to 'Candidates', candidates_path %></li>
-    </ul>
+    <div class="dashboard__resource_list-container">
+    <h3>Select resource to explore</h3>
+    <%= render 'dashboards/icons' %>
   <% end %>
 </div>
