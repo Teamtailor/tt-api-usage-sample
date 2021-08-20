@@ -5,17 +5,27 @@
     <%= form_with url: candidates_path, method: :get, html: { class: "toolbar-form"} do |form| %>
       <input type="hidden" id="commit" name="commit">
       <input type="hidden" id="page" value="1" name="page">
-      <div class="resource-list__toolbar">
-        <div class="filters">
-            <select name="location_id" id="location_id"">
-               <option value="">Locations</option>
-            </select>
 
-            <select name="connected" id="connected"">
-              <option value="">Connected</option>
-              <option value="true">True</option>
-              <option value="false">False</option>
-            </select>
+
+
+      <div class="resource-list__toolbar">
+
+        <div class="search">
+          <%= form.date_field :created_at_from %>
+          <%= form.date_field :created_at_to %>
+          <input name="email" placeholder="email@exampl.com" id="email">
+        </div>
+
+        <div class="filters">
+          <select name="location_id" id="location_id"">
+             <option value="">Locations</option>
+          </select>
+
+          <select name="connected" id="connected"">
+            <option value="">Connected</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
 
         </div>
 

@@ -23,6 +23,14 @@
       margin-left: 20px;
     }
 
+    .search {
+      margin-right: 30px;
+      input {
+        height: 36px;
+        
+      }
+    }
+
     .filters {
       background: #E5E6E9;
       border-radius: 19px;
@@ -76,5 +84,13 @@
   &__pagination {
     text-align: center;
     margin-top: 30px;
+
+    span {
+      margin: 0 3px;
+    }
+
+    a {
+      color: #57595F;
+    }
   }
 }
