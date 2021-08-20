@@ -2,31 +2,20 @@
 
   <div class="resource-list__header">
     <h2>Candidates</h2>
-    <%= form_with url: candidates_path, method: :get, html: { class: "toolbar-form"} do |form| %>
+    <%= form_with url: candidates_path, method: :get, html: { class: "toolbar-form" } do |form| %>
       <input type="hidden" id="commit" name="commit">
       <input type="hidden" id="page" value="1" name="page">
-
-
-
       <div class="resource-list__toolbar">
 
         <div class="search">
           <%= form.date_field :created_at_from %>
           <%= form.date_field :created_at_to %>
-          <input name="email" placeholder="email@exampl.com" id="email">
+          <input name="email" placeholder="email@example.com" id="email">
         </div>
 
         <div class="filters">
-          <select name="location_id" id="location_id"">
-             <option value="">Locations</option>
-          </select>
-
-          <select name="connected" id="connected"">
-            <option value="">Connected</option>
-            <option value="true">True</option>
-            <option value="false">False</option>
-          </select>
-
+          <%= form.select :locations, [['Locations', '']], {}, { id: 'location_id' } %>
+          <%= form.select :connected, [['Connected', ''], %w[True true], %w[False false]] %>
         </div>
 
         <div class="settings">
@@ -34,33 +23,34 @@
         </div>
       </div>
     <% end %>
-
   </div>
+
   <div class="resource-list__table">
-      <table>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Created At</th>
+        <th>Connected</th>
+        <th>Unsubscribed</th>
+        <th>Location(s)</th>
+      </tr>
+      <% @data['data']&.each do |candidate| %>
         <tr>
-          <th>Id</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Created At</th>
-          <th>Connected</th>
-          <th>Unsubscribed</th>
-          <th>Linkedin URL</th>
+          <td><%= candidate.dig('id') %></td>
+          <td><%= candidate.dig('attributes', 'first-name') %></td>
+          <td><%= candidate.dig('attributes', 'last-name') %></td>
+          <td><%= candidate.dig('attributes', 'email') %></td>
+          <td><%= Time.parse(candidate.dig('attributes', 'created-at')).strftime("%Y-%m-%dT%H:%M:%S") %></td>
+          <td><%= candidate.dig('attributes', 'connected') %></td>
+          <td><%= candidate.dig('attributes', 'unsubscribed') %></td>
+          <td><%= candidate_locations(candidate, @data['included']) %></td>
         </tr>
-        <% @data['data'].each do |candidate| %>
-          <tr>
-            <td><%= candidate.dig('id') %></td>
-            <td><%= candidate.dig('attributes', 'first-name') %></td>
-            <td><%= candidate.dig('attributes', 'last-name') %></td>
-            <td><%= candidate.dig('attributes', 'email') %></td>
-            <td><%= candidate.dig('attributes', 'created-at') %></td>
-            <td><%= candidate.dig('attributes', 'connected') %></td>
-            <td><%= candidate.dig('attributes', 'unsubscribed') %></td>
-            <td><%= candidate.dig('attributes', 'linkedin-url') %></td>
-          </tr>
-        <% end %>
-      </table>
+      <% end %>
+    </table>
+    <% if @max_page.positive? %>
       <div class="resource-list__pagination">
         <span> <%= link_to '<< ', candidates_path(@filter_params.merge(page: 1)) %></span>
         <% if @prev_page %>
@@ -71,6 +61,7 @@
         <% end %>
         <span> <%= link_to ' >>', candidates_path(@filter_params.merge(page: @max_page)) %></span>
       </div>
+    <% end %>
   </div>
 </div>
 

@@ -7,7 +7,7 @@ of [Teamtailor resources](https://docs.teamtailor.com/).
 ## How to use:
 
 * Clone the repo
-* Install dependencies using `bundle install`
+* Install dependencies using `bundle install` and `yarn`.
 * Start the server with `rails server`
 * Visit [http://localhost:3000](http://localhost:3000) to access the app home page
 * Enter your Teamtailor API key the hit Submit.
@@ -37,8 +37,9 @@ Let's say I want to add users resources to the supported list
 2- Create users controller inheriting from resources controller (eg. controllers/candidates_controller.rb). All what's
 needed to change is the following methods:
 
-* filters_params: (filters suppored on the resource)
+* filters_params: (filters supported on the resource)
 * resource_type: which should return 'users' in this case
+* includes: This defines any relationships you would like to include in the response.
 
 3- Create index and filters form for the users page under views/users repository. You can use `index.html`
 and `_form_candidate_filters.html.erb` as templates. Please note that when building the filters form, the filter field

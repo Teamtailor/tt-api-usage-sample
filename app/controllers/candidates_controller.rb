@@ -8,4 +8,8 @@ class CandidatesController < ResourcesController
   def resource_type
     'candidates'
   end
+
+  def includes
+    { include: 'locations' }
+  end
 end
